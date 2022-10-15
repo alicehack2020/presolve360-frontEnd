@@ -35,6 +35,12 @@ const Admin = () => {
     .then(data=>setTaskList(data.data))
   },[])
 
+  const allTaskList=()=>{
+          fetch(url+"api/user/getAllTask")
+          .then(res=>res.json())
+          .then(data=>setTaskList(data.data))
+  }
+
 
 
   const saveData=()=>
@@ -72,7 +78,10 @@ const handdleError=(json)=>{
     else
     {
         alert(json.message);
-      
+
+        allTaskList()
+          
+        
         // call all task api
 
     }
@@ -84,6 +93,47 @@ const handdleError=(json)=>{
   {
     setDeveloper(event.target.value);
   };
+
+  const changeState=(id,status)=>
+  {
+
+    if(status==="completed")
+    {
+      status="not completed"
+    }
+    else if(status==="not completed")
+    {
+      status="completed" 
+    }
+
+    const data={
+      status:status
+    }
+      // POST request using fetch()
+      fetch(url+"api/user/updateTask/"+id, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      })
+      .then(response => response.json()) 
+      allTaskList()
+
+  }
+
+
+  const taskDelete=(id)=>{
+    // POST request using fetch()
+    fetch(url+"api/user/deleteTask/"+id, {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    })
+    .then(response => response.json()) 
+    allTaskList()
+  }
 
 
  
@@ -131,7 +181,8 @@ const handdleError=(json)=>{
                     <p>Task name:{e.task_name}</p>   
                     <p>Task description:{e.Description}</p>   
                     <p>Task date:{e.task_Date}</p> 
-                    <Button variant="contained" sx={{marginTop:"20px"}}>{e.status}</Button>  
+                    <Button variant="contained" sx={{marginTop:"20px"}} onClick={()=>changeState(e._id,e.status)}>{e.status}</Button>  
+                    <Button variant="contained" sx={{marginTop:"20px",marginLeft:"20px"}} onClick={()=>taskDelete(e._id)}>delete</Button>  
                 </div>)
               })
             }
