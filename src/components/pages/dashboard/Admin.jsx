@@ -53,7 +53,7 @@ const Admin = () => {
       Description:description,
       developer:developer,
       task_Date:taskDate,
-      status:"not completed"
+      status:"incomplete"
     }
 
 

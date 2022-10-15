@@ -5,6 +5,8 @@
 .taskform{
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 0;
 }
 .dateSelector{
     margin-top: 20px;
