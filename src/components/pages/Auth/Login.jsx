@@ -45,7 +45,7 @@ const handdleError=(json)=>{
     else
     {
       
-      
+
       localStorage.setItem("user",JSON.stringify(json.data))
       navigate("/admin")
        

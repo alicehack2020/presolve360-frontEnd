@@ -3,12 +3,9 @@ import NavBarLogin from '../navbar/NavBarlogin'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-// import Box from '@mui/material/Box';
-// import InputLabel from '@mui/material/InputLabel';
-// import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
-// import Select from '@mui/material/Select';
-
+ 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import "./Registration.css"
 import { useNavigate } from 'react-router-dom';
@@ -43,6 +40,8 @@ fetch(url+"api/user/register", {
 .then(response => response.json())
 .then(json =>handdleError(json));
 
+ 
+
 }
 
 
@@ -54,8 +53,11 @@ const handdleError=(json)=>{
     }
     else
     {
-      alert(json.message) 
-      navigate("/login")
+      toast("regiatration completed")
+      setTimeout(()=>{
+        navigate("/login")
+      },3000) 
+     
     }
 }
  
@@ -69,11 +71,8 @@ const handdleError=(json)=>{
             <TextField className='TextField' label="Enter your email" variant="outlined" value={email} onChange={(e)=>setEmail(e.target.value)} sx={{marginTop:"30px"}}/>
             <TextField className='TextField' label="Enter your password" variant="outlined"  type="password" value={password} onChange={(e)=>setPassword(e.target.value)} sx={{marginTop:"30px"}}/>
             <TextField className='TextField' label="Enter your confirm Password" variant="outlined"  type="password" value={passwordConfirmation} onChange={(e)=>setPasswordConfirmation(e.target.value)} sx={{marginTop:"30px",marginBottom:"30px"}}/>
-         
-          
-
-
       <Button className="Button" variant="contained" onClick={saveData} sx={{width:"20rem"}}>Register</Button>       
+       <ToastContainer/>
         </div>
       </div>
 

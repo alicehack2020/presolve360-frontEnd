@@ -9,6 +9,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {url} from "../../../config/url.js"
  
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 import "./Admin.css"
 
@@ -66,6 +68,8 @@ fetch(url+"api/user/addTask", {
 .then(response => response.json())
 .then(json =>handdleError(json));
 
+toast("task added")
+
 }
 
 
@@ -77,13 +81,8 @@ const handdleError=(json)=>{
     }
     else
     {
-        alert(json.message);
-
-        allTaskList()
-          
-        
         // call all task api
-
+        allTaskList()
     }
 }
 
@@ -131,7 +130,10 @@ const handdleError=(json)=>{
         "Content-type": "application/json; charset=UTF-8"
       }
     })
-    .then(response => response.json()) 
+    .then(response => response.json())
+
+    toast("task deleted")
+
     allTaskList()
   }
 
@@ -180,9 +182,11 @@ const handdleError=(json)=>{
                 return(<div className="sub_card">
                     <p>Task name:{e.task_name}</p>   
                     <p>Task description:{e.Description}</p>   
+                    <p>developer name:{e.developer}</p>   
                     <p>Task date:{e.task_Date}</p> 
                     <Button variant="contained" sx={{marginTop:"20px"}} onClick={()=>changeState(e._id,e.status)}>{e.status}</Button>  
                     <Button variant="contained" sx={{marginTop:"20px",marginLeft:"20px"}} onClick={()=>taskDelete(e._id)}>delete</Button>  
+                    <ToastContainer />
                 </div>)
               })
             }
