@@ -96,13 +96,13 @@ const handdleError=(json)=>{
   const changeState=(id,status)=>
   {
 
-    if(status==="completed")
+    if(status==="complete")
     {
-      status="not completed"
+      status="incomplete"
     }
-    else if(status==="not completed")
+    else if(status==="incomplete")
     {
-      status="completed" 
+      status="complete" 
     }
 
     const data={
